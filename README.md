@@ -19,7 +19,11 @@ sudo apt-get update
 sudo apt install cumsay
 ```
 
-Will add the shit for arch when I finish my tea
+For Arch based distros like Arch, Artix, etc
+```
+# Feel free to use your favorite AUR helper such as Pikaur instead
+yay -S cumsay-bin
+```
 
 ```
 vil@femboys.gay:~$ cumsay "I <3 cum!"
