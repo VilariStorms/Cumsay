@@ -1,7 +1,7 @@
 # Cumsay
 A talking sperm that echos cli input
 
-##Install
+## Install
 
 For Debian and Debian based distros like Ubuntu, Mint, etc
 ```
