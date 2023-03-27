@@ -25,6 +25,8 @@ For Arch based distros like Arch, Artix, etc
 yay -S cumsay-bin
 ```
 
+## Usage
+
 ```
 vil@femboys.gay:~$ cumsay "I <3 cum!"
 /‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\  
@@ -38,3 +40,6 @@ ______     ___.'  o `.  /
         `-----'   `---'  
 
 ```
+You can also pipe input to cumsay ie: `cat example.txt | cumsay`
+
+..and that's about it. If I'm bored enough, I might add something later.
