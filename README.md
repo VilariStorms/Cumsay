@@ -43,3 +43,21 @@ ______     ___.'  o `.  /
 You can also pipe input to cumsay ie: `cat example.txt | cumsay`
 
 ..and that's about it. If I'm bored enough, I might add something later.
+
+### For windows
+
+```
+Install with chocolatey
+PS C:\CummyUser\cum> ./cum.exe Cum on Windows!
+/--------------------------------------\  
+
+       Cum on Windows! 
+ 
+\--------------------------------------/
+                ____     _/
+______     ___.'  o `.  /
+/~----,\___/,--.   ,_ |
+        `-----'   `---'
+PS C:\CummyUser\cum> 
+```
+
