@@ -46,9 +46,34 @@ You can also pipe input to cumsay ie: `cat example.txt | cumsay`
 
 ### For windows
 
+Save the following as install.ps1 and run with elevated permissions:
 ```
-Install with chocolatey
-PS C:\CummyUser\cum> ./cum.exe Cum on Windows!
+# Change the download url if neceessary
+$url = "https://github.com/VilariStorms/Cumsay/releases/download/windows/cumsay.exe"
+$downloadDirectory = "C:\cumsay"
+
+# Create Cumsay Folder if it does not exists
+if (-not (Test-Path -Path $downloadDirectory -PathType Container)) {
+    New-Item -ItemType Directory -Force -Path $downloadDirectory
+}
+$exeFileName = "cumsay.exe"
+
+# Add to path
+$path = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+Invoke-WebRequest -Uri $url -OutFile "$downloadDirectory\$exeFileName"
+
+# Add the .exe file to the PATH environment variable
+[System.Environment]::SetEnvironmentVariable("Path", "$path;$downloadDirectory", [System.EnvironmentVariableTarget]::Machine)
+
+# Done
+Write-Host "The $exeFileName file was downloaded and if ran with admin privilidges, was added to the PATH environment variable."
+Write-Host "Please restart your terminal. You can now run cumsay from your commandline with cumsay <text-to-ejaculate>"
+```
+
+
+```
+
+C:\CummyUser\cum> cumsay Cum on Windows!
 /--------------------------------------\  
 
        Cum on Windows! 
@@ -58,6 +83,6 @@ PS C:\CummyUser\cum> ./cum.exe Cum on Windows!
 ______     ___.'  o `.  /
 /~----,\___/,--.   ,_ |
         `-----'   `---'
-PS C:\CummyUser\cum> 
+C:\CummyUser\cum> 
 ```
 
