@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 //pretty horrid code but it's talking cum ffs I cant be arsed to make it pretty
+// should've used rust tbh - deltara
 
 void cum_say(char *message) {
     char *cum = "\n"
