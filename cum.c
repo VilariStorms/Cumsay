@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
         
         
         }else {
-            fprintf(stderr, "Usage cumsay <text_to_ejaculate> \n");
+            fprintf(stderr, "Usage: cumsay <text_to_ejaculate> \n");
             return 1;
     }
     }
