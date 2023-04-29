@@ -7,7 +7,7 @@ all: cumsay
 cumsay: cum.c
 	$(CC) $(CFLAGS) -o cumsay cum.c
 
-install:
+install: cumsay
 	cp cumsay $(INSTALL_DIR)/
 
 uninstall:
