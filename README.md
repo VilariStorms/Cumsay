@@ -1,5 +1,6 @@
 # Cumsay
 Usage: cumsay <text_to_ejaculate>
+
 A talking sperm that echos both standard and piped input.
 
 ## Install
