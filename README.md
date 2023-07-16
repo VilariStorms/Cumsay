@@ -13,7 +13,7 @@ Optional args:
 ```
 ## Install
 
-Packages are available for the the most popular distros but you can also build from source with:
+Packages are available for the most popular distros but you can also build from source with:
 
 ```
 user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay
