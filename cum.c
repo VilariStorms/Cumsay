@@ -5,7 +5,8 @@
 #include <time.h>
 #include <unistd.h>
 
-#define VERSION "0.1.0"
+// ngl I forgot to update this for a while and I'm too lazy to check what version it's on so I'm just gonna say it's 0.1.3 
+#define VERSION "0.1.3"                          
 
 // pretty horrid code but it's talking cum ffs I cant be arsed to make it pretty
 //  should've used rust tbh - deltara
@@ -110,7 +111,12 @@ int main(int argc, char *argv[]) {
   // Ejaculate
   cum_say(message, colour, rainbow);
   return 0;
+// no need to free message as it is freed when the program exits :D
 }
+
+
+
+// The horrible stuff below
 
 void print_version() { printf("cumsay version %s \n", VERSION); }
 void print_help() {
@@ -127,29 +133,23 @@ int parse_colour(char *arg, char **colour) {
   // TODO: add more colours and handle misspelt colours
   if (strcmp(arg, "red") == 0) {
     *colour = colours.red;
-    return 0;
   } else if (strcmp(arg, "green") == 0) {
     *colour = colours.green;
-    return 0;
   } else if (strcmp(arg, "yellow") == 0) {
     *colour = colours.yellow;
-    return 0;
   } else if (strcmp(arg, "blue") == 0) {
     *colour = colours.blue;
-    return 0;
   } else if (strcmp(arg, "magenta") == 0) {
     *colour = colours.magenta;
-    return 0;
   } else if (strcmp(arg, "cyan") == 0) {
     *colour = colours.cyan;
-    return 0;
   } else if (strcmp(arg, "white") == 0) {
     *colour = colours.white;
-    return 0;
   } else {
     fprintf(stderr, "Invalid colour: %s \n", arg);
     return 1;
   }
+  return 0;
 }
 
 // Not really necessary but it keeps main() clean
@@ -173,6 +173,7 @@ int validate_arg(char *arg) {
 
 void random_colour() {
   // changes the terminal text colour to a random colour
+  // Note this is horrible but ehh who cares, it works and it's not like this is a serious project
   int randomIndex = rand() % 7;
   const char *randomColor = NULL;
   switch (randomIndex) {
