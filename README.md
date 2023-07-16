@@ -1,8 +1,16 @@
 # Cumsay
-Usage: cumsay <text_to_ejaculate>
 
 A talking sperm that echos both standard and piped input.
 
+Usage: cumsay <text_to_ejaculate>
+Alternatively you can pipe input eg. `cat example.txt | cumsay --colour red`
+
+Optional args:
+  -h, --help     Show help message and exit
+  -v, --version  Show version number and exit
+  -c, --colour   Change the colour of the cum
+  -r, --rainbow  Make the cum rainbow
+  
 ## Install
 
 Packages are available for the the most popular distros but you can also build from source with:
