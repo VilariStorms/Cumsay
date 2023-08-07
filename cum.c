@@ -5,18 +5,19 @@
 #include <time.h>
 #include <unistd.h>
 
-// ngl I forgot to update this for a while and I'm too lazy to check what version it's on so I'm just gonna say it's 0.1.3 
-#define VERSION "0.1.3"                          
+// ngl I forgot to update this for a while and I'm too lazy to check what
+// version it's on so I'm just gonna say it's 0.1.3
+#define VERSION "0.1.3"
 
 // pretty horrid code but it's talking cum ffs I cant be arsed to make it pretty
 //  should've used rust tbh - deltara
 valid_colours colours = {.red = "\x1b[31m",
-                          .green = "\x1b[32m",
-                          .yellow = "\x1b[33m",
-                          .blue = "\x1b[34m",
-                          .magenta = "\x1b[35m",
-                          .cyan = "\x1b[36m",
-                          .white = "\x1b[37m"};
+                         .green = "\x1b[32m",
+                         .yellow = "\x1b[33m",
+                         .blue = "\x1b[34m",
+                         .magenta = "\x1b[35m",
+                         .cyan = "\x1b[36m",
+                         .white = "\x1b[37m"};
 
 char arguments[][69] = {"-h", "--help",   "-v", "--version",
                         "-c", "--colour", "-r", "--rainbow"};
@@ -76,7 +77,8 @@ int main(int argc, char *argv[]) {
         print_version();
         return 0;
       case 3: // colour
-        // check if next argument is a proper colour but first check if there is another element in argv
+        // check if next argument is a proper colour but first check if there is
+        // another element in argv
         if (i + 1 >= argc) {
           fprintf(stderr, "Error: no colour specified \n");
           return 1;
@@ -111,10 +113,8 @@ int main(int argc, char *argv[]) {
   // Ejaculate
   cum_say(message, colour, rainbow);
   return 0;
-// no need to free message as it is freed when the program exits :D
+  // no need to free message as it is freed when the program exits :D
 }
-
-
 
 // The horrible stuff below
 
@@ -173,7 +173,8 @@ int validate_arg(char *arg) {
 
 void random_colour() {
   // changes the terminal text colour to a random colour
-  // Note this is horrible but ehh who cares, it works and it's not like this is a serious project
+  // Note this is horrible but ehh who cares, it works and it's not like this is
+  // a serious project
   int randomIndex = rand() % 7;
   const char *randomColor = NULL;
   switch (randomIndex) {
