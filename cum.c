@@ -1,4 +1,5 @@
 #include "cum.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,21 +28,24 @@ void cum_say(char *message, char *colour, int rainbow) {
     printf("%s", colour);
   }
 
-  printf("/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\ \x1b[3m \n\n");
-  char *cum = "\n"
-              "\\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ \n"
-              "                ____     _/ \n"
-              "______     ___.'  o `.  / \n"
-              "/~----,\\___/,--.   ,_ | \n"
-              "        `-----'   `---' ";
+  char *cum =
+      "\n"
+      "\\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ \n"
+      "                ____     _/ \n"
+      "______     ___.'  o `.  / \n"
+      "/~----,\\___/,--.   ,_ | \n"
+      "        `-----'   `---' ";
   if (rainbow == 1) {
     char *token = strtok(message, "\n");
+    random_colour();
+    printf("/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\ \x1b[3m \n\n");
     while (token != NULL) {
       printf("%22s \n", token);
       random_colour();
       token = strtok(NULL, "\n");
     }
   } else {
+    printf("/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\ \x1b[3m \n\n");
     printf("%22s\n", message);
   }
 
@@ -63,32 +67,32 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++) {
       arg = validate_arg(argv[i]);
       switch (arg) {
-      case 0:
-        message_size += strlen(argv[i]) + 1;
-        message = realloc(message, sizeof(char) * message_size);
-        strcat(message, argv[i]);
-        strcat(message, " ");
-        valid_arg += 1;
-        break;
-      case 1: // help
-        print_help();
-        return 0;
-      case 2: // version
-        print_version();
-        return 0;
-      case 3: // colour
-        // check if next argument is a proper colour but first check if there is
-        // another element in argv
-        if (i + 1 >= argc) {
-          fprintf(stderr, "Error: no colour specified \n");
-          return 1;
-        }
-        parse_colour(argv[i + 1], &colour);
-        i++;
-        break;
-      case 4: // rainbow
-        rainbow = 1;
-        break;
+        case 0:
+          message_size += strlen(argv[i]) + 1;
+          message = realloc(message, sizeof(char) * message_size);
+          strcat(message, argv[i]);
+          strcat(message, " ");
+          valid_arg += 1;
+          break;
+        case 1:  // help
+          print_help();
+          return 0;
+        case 2:  // version
+          print_version();
+          return 0;
+        case 3:  // colour
+          // check if next argument is a proper colour but first check if there
+          // is another element in argv
+          if (i + 1 >= argc) {
+            fprintf(stderr, "Error: no colour specified \n");
+            return 1;
+          }
+          parse_colour(argv[i + 1], &colour);
+          i++;
+          break;
+        case 4:  // rainbow
+          rainbow = 1;
+          break;
       }
     }
   }
@@ -120,7 +124,6 @@ int main(int argc, char *argv[]) {
 
 void print_version() { printf("cumsay version %s \n", VERSION); }
 void print_help() {
-
   printf("Usage: cumsay <text_to_ejaculate> \n");
   printf("Options: \n");
   printf("  -h, --help     Show this help message and exit \n");
@@ -157,9 +160,9 @@ int validate_arg(char *arg) {
   // parse arguments and check if they are valid
   // -h, --help, -v, --version, -c, --colour, -r, --rainbow
   if (strcmp(arg, arguments[0]) == 0 || strcmp(arg, arguments[1]) == 0) {
-    return 1; // help
+    return 1;  // help
   } else if (strcmp(arg, arguments[2]) == 0 || strcmp(arg, arguments[3]) == 0) {
-    return 2; // version
+    return 2;  // version
   } else if (strcmp(arg, arguments[4]) == 0 || strcmp(arg, arguments[5]) == 0) {
     // change colour
     return 3;
@@ -178,27 +181,27 @@ void random_colour() {
   int randomIndex = rand() % 7;
   const char *randomColor = NULL;
   switch (randomIndex) {
-  case 0:
-    randomColor = colours.red;
-    break;
-  case 1:
-    randomColor = colours.green;
-    break;
-  case 2:
-    randomColor = colours.yellow;
-    break;
-  case 3:
-    randomColor = colours.blue;
-    break;
-  case 4:
-    randomColor = colours.magenta;
-    break;
-  case 5:
-    randomColor = colours.cyan;
-    break;
-  case 6:
-    randomColor = colours.white;
-    break;
+    case 0:
+      randomColor = colours.red;
+      break;
+    case 1:
+      randomColor = colours.green;
+      break;
+    case 2:
+      randomColor = colours.yellow;
+      break;
+    case 3:
+      randomColor = colours.blue;
+      break;
+    case 4:
+      randomColor = colours.magenta;
+      break;
+    case 5:
+      randomColor = colours.cyan;
+      break;
+    case 6:
+      randomColor = colours.white;
+      break;
   }
   printf("%s", randomColor);
 }
