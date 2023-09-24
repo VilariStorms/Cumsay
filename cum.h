@@ -2,18 +2,19 @@
 
 // struct for colours
 typedef struct {
-    char *red;
-    char *green;
-    char *yellow;
-    char *blue;
-    char *magenta;
-    char *cyan;
-    char *white;
-    char *reset;
+	char *red;
+	char *green;
+	char *yellow;
+	char *blue;
+	char *magenta;
+	char *cyan;
+	char *white;
+	char *reset;
 } valid_colours;
 
 void print_help();
 void print_version();
 int parse_colour(char *arg, char **colour);
-int validate_arg(char *arg);
+int validate_arg(char *arg, int *rainbow);
 void random_colour();
+int lenght_check(int argc, int arg_index);
