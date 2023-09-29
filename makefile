@@ -1,5 +1,6 @@
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -Werror -O2 
+DEBUGFLAGS=-Wall -Werror -Wextra -fsanitize=address,undefined
 INSTALL_DIR=/usr/bin
 MAN_DIR=/usr/share/man/man1
 
@@ -15,6 +16,9 @@ install: cumsay
 uninstall:
 	rm -f $(INSTALL_DIR)/cumsay
 	rm -f $(MAN_DIR)/cumsay.1
+
+debug:
+	$(CC) -o cumsay cum.c $(DEBUGFLAGS)
 
 clean:
 	rm -f cumsay
