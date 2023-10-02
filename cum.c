@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	char *colour = NULL;
 	char *message;
 	int rainbow = 0;
-	size_t message_size = 0;
+	size_t message_size = 1;
 
 	message = calloc(sizeof(char), 1);
 
@@ -78,9 +78,14 @@ int main(int argc, char *argv[])
 				}
 
 			default:
-				message_size += strlen(argv[i]) + 1;
-				message = realloc(message,
-						  sizeof(char) * message_size);
+				message_size += strlen(argv[i]) + 2;
+				message = realloc(
+					message, (sizeof(char) * message_size));
+				if (message == NULL) {
+					fprintf(stderr,
+						"Error allocating memory \n");
+					return 1;
+				}
 				strcat(message, argv[i]);
 				strcat(message, " ");
 				break;
