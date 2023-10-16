@@ -1,6 +1,7 @@
 # Cumsay
 
 A talking sperm that echos both standard and piped input.
+Rust version [here](https://github.com/BIGCum-limited/cumday) written by [BIGCum-limited](https://github.com/BIGCum-limited)!!!
 
 Usage: cumsay <text_to_ejaculate>
 Alternatively you can pipe input eg. `cat example.txt | cumsay --colour red`
