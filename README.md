@@ -14,6 +14,9 @@ Optional args:
 ```
 ## Install
 
+# Important note! 
+-  apt.vilari.site is currently unavailible as I am switching hosting providers. You will have to build from source for now
+
 Packages are available for the most popular distros but you can also build from source with:
 
 ```
