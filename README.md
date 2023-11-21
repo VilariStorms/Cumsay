@@ -20,7 +20,8 @@ Optional args:
 Packages are available for the most popular distros but you can also build from source with:
 
 ```
-user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay && ./configure
+user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay
+user@femboy$ ./configure
 user@femboy$ make
 ```
 You can then move `cumsay` to your desired directory or install with
