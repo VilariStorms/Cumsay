@@ -10,7 +10,7 @@
 #define VERSION "0.1.3"
 
 // pretty horrid code but it's talking cum ffs I cant be arsed to make it pretty
-//  should've used rust tbh - deltara
+// should've used rust tbh - deltara
 valid_colours colours = { .red = "\x1b[31m",
 			  .green = "\x1b[32m",
 			  .yellow = "\x1b[33m",
@@ -114,6 +114,7 @@ int main(int argc, char *argv[])
 
 	// Ejaculate
 	cum_say(message, colour, rainbow);
+        free(message); // fuck you
 	return 0;
 	// no need to free message as it is freed when the program exits :D
 }

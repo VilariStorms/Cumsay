@@ -20,7 +20,7 @@ Optional args:
 Packages are available for the most popular distros but you can also build from source with:
 
 ```
-user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay
+user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay && ./configure
 user@femboy$ make
 ```
 You can then move `cumsay` to your desired directory or install with
@@ -103,16 +103,16 @@ Write-Host "Please restart your terminal. You can now run cumsay from your comma
 
 ```
 
-C:\CummyUser\cum> cumsay Cum on Windows!
-/--------------------------------------\  
+C:\CummyUser\cum> cumsay "Cum on Windows! (and me please)"
+/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\
 
-       Cum on Windows! 
- 
-\--------------------------------------/
-                ____     _/
-______     ___.'  o `.  /
-/~----,\___/,--.   ,_ |
-        `-----'   `---'
+Cum on Windows! (and me please) 
+
+\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ 
+                ____     _/ 
+______     ___.'  o `.  / 
+/~----,\___/,--.   ,_ | 
+        `-----'   `---' 
 C:\CummyUser\cum> 
 ```
 
