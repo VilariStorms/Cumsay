@@ -1,0 +1,4 @@
+*.sh linguist-detectable=false
+*.ac linguist-detectable=false
+*.m4 linguist-detectable=false
+*.in linguist-detectable=false
