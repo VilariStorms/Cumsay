@@ -2,3 +2,9 @@
 *.ac linguist-detectable=false
 *.m4 linguist-detectable=false
 *.in linguist-detectable=false
+configure linguist-detectable=false
+install linguist-detectable=false
+missing linguist-detectable=false
+install-sh linguist-detectable=false
+depcomp linguist-detectable=false
+compile linguist-detectable=false
