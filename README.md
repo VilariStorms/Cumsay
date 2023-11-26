@@ -17,7 +17,7 @@ Optional args:
 # Important note! 
 -  apt.vilari.site is currently unavailible as I am switching hosting providers. You will have to build from source for now
 
-Packages are available for the most popular distros but you can also build from source with:
+Packages are available for the most popular distros; Arch, Debian, even termux but you can also build from source with:
 
 ```
 user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay
@@ -25,13 +25,30 @@ user@femboy$ ./configure
 user@femboy$ make
 ```
 You can then move `cumsay` to your desired directory or install with
-
 ```
 user@femboy$ sudo make install
 ```
 Uninstalling is as simple as:
 ```
 user@femboy$ sudo make uninstall
+```
+### Note for use on Termux
+- Building on termux is no different. However, because we are aware most termux users lack basic linux skills and have a chronic inability to Google here are the exact instructions for a successful cumsay install on termux.
+```
+# Install dependencies
+pkg install clang make man automake git -y
+# Clone the repo
+git clone https://github.com/VilariStorms/Cumsay.git
+# Enter the Cumsay directory. (On Linux the is is the equivalent of opening a folder on windows)
+cd Cumsay
+# Run configure with the appropriate arguments.
+./configure --prefix=/data/data/com.termux/files/usr
+# Run make. Make will compile cumsay for you.
+make
+# Run make with the install argument to make cumsay available on your system.
+make install
+# Note about the make install command. Normally this would be run as root or using sudo. ie - sudo make install but this is not necessary on termux.
+# Assuming no errors, cumsay will now be available to you.
 ```
 
 For Debian and Debian based distros like Ubuntu, Mint, etc
