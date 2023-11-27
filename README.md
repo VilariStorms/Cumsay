@@ -14,10 +14,10 @@ Optional args:
 ```
 ## Install
 
-# Important note! 
+# Important note!
 -  apt.vilari.site is currently unavailible as I am switching hosting providers. You will have to build from source for now
 
-Packages are available for the most popular distros; Arch, Debian, even termux but you can also build from source with:
+Packages are available for the most popular distros; Arch, Debian, even Termux but you can also build from source with:
 
 ```
 user@femboy$ git clone https://github.com/VilariStorms/Cumsay.git && cd Cumsay
@@ -77,15 +77,15 @@ yay -S cumsay-bin
 
 ```
 vil@femboys.gay:~$ cumsay "I <3 cum!"
-/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\  
+/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\
 
-             I <3 cum! 
- 
-\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ 
-                ____     _/ 
-______     ___.'  o `.  / 
-/~----,\___/,--.   ,_ | 
-        `-----'   `---'  
+             I <3 cum!
+
+\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/
+                ____     _/
+______     ___.'  o `.  /
+/~----,\___/,--.   ,_ |
+        `-----'   `---'
 
 ```
 You can also pipe input to cumsay ie: `cat example.txt | cumsay`
@@ -124,13 +124,13 @@ Write-Host "Please restart your terminal. You can now run cumsay from your comma
 C:\CummyUser\cum> cumsay "Cum on Windows! (and me please)"
 /‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\
 
-Cum on Windows! (and me please) 
+Cum on Windows! (and me please)
 
-\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ 
-                ____     _/ 
-______     ___.'  o `.  / 
-/~----,\___/,--.   ,_ | 
-        `-----'   `---' 
-C:\CummyUser\cum> 
+\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/
+                ____     _/
+______     ___.'  o `.  /
+/~----,\___/,--.   ,_ |
+        `-----'   `---'
+C:\CummyUser\cum>
 ```
 

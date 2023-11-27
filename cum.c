@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
 	// Ejaculate
 	cum_say(message, colour, rainbow);
-        free(message); // fuck you
+	free(message); // fuck you
 	return 0;
 	// no need to free message as it is freed when the program exits :D
 }
