@@ -170,10 +170,7 @@ int print_help(char *arg)
 	       "  -r, --rainbow\t\t\tSet the colour of the message to a random colour\n"
 	       "  -h, --help\t\t\tPrint this help message and exit\n"
 	       "  -v, --version\t\t\tPrint the version number and exit\n\n"
-	       "Valid colours are: red, green, yellow, blue, magenta, cyan, white\n"
-	       "If no message is specified, the default message will be used.\n"
-	       "If no colour is specified, the default colour will be used.\n"
-	       "If no arguments are specified, the default message and colour will be used.\n\n"
+	       "Valid colours are: red, green, yellow, blue, magenta, cyan, white\n\n"
 	       "Report bugs to <@deltara3> on Discord.\n");
 	exit(0);
 	return 0;
