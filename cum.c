@@ -6,233 +6,246 @@
 
 #include "cum.h"
 // ngl I forgot to update this for a while and I'm too lazy to check what
-// version it's on so I'm just gonna say it's 0.1.3
-#define VERSION "0.1.3"
+// version it's on so I'm just gonna say it's 0.1.5
+#define VERSION "0.1.5"
 
 // pretty horrid code but it's talking cum ffs I cant be arsed to make it pretty
 // should've used rust tbh - deltara
-valid_colours colours = { .red = "\x1b[31m",
-			  .green = "\x1b[32m",
-			  .yellow = "\x1b[33m",
-			  .blue = "\x1b[34m",
-			  .magenta = "\x1b[35m",
-			  .cyan = "\x1b[36m",
-			  .white = "\x1b[37m" };
 
-char arguments[][69] = { "-h", "--help",   "-v", "--version",
-			 "-c", "--colour", "-r", "--rainbow" };
+char *current_colour = NULL;
+int rainbowed = 0;
 
-char *top = "/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\\n\n";
-char *cum = "\n"
-	    "\\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ \n"
-	    "                ____     _/ \n"
-	    "______     ___.'  o `.  / \n"
-	    "/~----,\\___/,--.   ,_ | \n"
-	    "        `-----'   `---' ";
+static valid_colours colours = { .red = "\x1b[31m",
+				 .green = "\x1b[32m",
+				 .yellow = "\x1b[33m",
+				 .blue = "\x1b[34m",
+				 .magenta = "\x1b[35m",
+				 .cyan = "\x1b[36m",
+				 .white = "\x1b[37m" };
+
+argument help = { .long_arg = "--help",
+		  .short_arg = "-h",
+		  .takes_arg = 0,
+		  .handler = print_help };
+argument version = { .long_arg = "--version",
+		     .short_arg = "-v",
+		     .takes_arg = 0,
+		     .handler = print_version };
+argument colour = { .long_arg = "--colour",
+		    .short_arg = "-c",
+		    .takes_arg = 1,
+		    .handler = set_colour };
+argument rainbow = { .long_arg = "--rainbow",
+		     .short_arg = "-r",
+		     .takes_arg = 0,
+		     .handler = set_rainbow };
+
+static argument *arguments[] = { &help, &version, &colour, &rainbow };
+static int num_args = sizeof(arguments) / sizeof(arguments[0]);
+
+static char *top = "/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\\n\n";
+static char *bottom = "\n"
+		      "\\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ \n";
+static char *sperm = "                ____     _/ \n"
+		     "______     ___.'  o `.  / \n"
+		     "/~----,\\___/,--.   ,_ | \n"
+		     "        `-----'   `---' ";
 
 void cum_say(char *message, char *colour, int rainbow)
 {
 	if (colour != NULL) {
 		printf("%s", colour);
-	}
-	if (rainbow == 1) {
+	} else if (rainbow) {
 		random_colour();
 	}
 	printf("%s", top);
 
 	char *token = strtok(message, "\n");
 	while (token != NULL) {
-		if (rainbow) {
+		if (rainbow)
 			random_colour();
-		}
+
 		printf("%22s\n", token);
 		token = strtok(NULL, "\n");
 	}
+	if (rainbow)
+		random_colour();
 
-	printf("%s\n", cum);
+	printf("%s\n", bottom);
+	if (rainbow)
+		random_colour();
+	printf("%s\n", sperm);
 	printf("\x1b[0m");
+}
+
+int parse_args(char *arg, char *argstr, int *ii)
+{
+	for (int i = 0; i < num_args; i++) {
+		if (strcmp(arg, arguments[i]->long_arg) == 0 ||
+		    strcmp(arg, arguments[i]->short_arg) == 0) {
+			arguments[i]->handler(argstr);
+			if ((argstr != NULL) && arguments[i]->takes_arg)
+				*ii += 1;
+			return 0;
+		}
+	}
+	return -1;
 }
 
 int main(int argc, char *argv[])
 {
-	srand(time(NULL)); // for random colour
-	char *colour = NULL;
 	char *message;
-	int rainbow = 0;
 	size_t message_size = 1;
+	srand(time(NULL));
+	message = calloc(sizeof(char), message_size);
+	for (int i = 1; i < argc; i++) {
+		char *argstr = NULL;
+		switch (argv[i][0]) {
+		case '-':
+			if ((argc - i) >= 1)
+				argstr = argv[i + 1];
 
-	message = calloc(sizeof(char), 1);
-
-	if (argc >= 1) {
-		for (int i = 1; i < argc; i++) {
-			switch (argv[i][0]) {
-			case '-':
-				if (validate_arg(argv[i], &rainbow) &&
-				    lenght_check(argc, i)) {
-					parse_colour(argv[i + 1], &colour);
-					i++;
-					break;
+			if (parse_args(argv[i], argstr, &i) != -1) {
+				continue;
+			} else {
+				message_size += strlen(argv[i]) + 1;
+				char *tmp = realloc(message, message_size);
+				if (tmp == NULL) {
+					printf("Error: realloc failed\n");
+					exit(1);
 				}
-				if (rainbow) {
-					break;
-				}
-
-			default:
-				message_size += strlen(argv[i]) + 2;
-				message = realloc(
-					message, (sizeof(char) * message_size));
-				if (message == NULL) {
-					fprintf(stderr,
-						"Error allocating memory \n");
-					return 1;
-				}
+				message = tmp;
 				strcat(message, argv[i]);
 				strcat(message, " ");
-				break;
 			}
+			break;
+		default:
+			message_size += strlen(argv[i]) + 1;
+			char *tmp = realloc(message, message_size);
+			if (tmp == NULL) {
+				printf("Error: realloc failed\n");
+				exit(1);
+			}
+			message = tmp;
+			strcat(message, argv[i]);
+			strcat(message, " ");
+
+			break;
 		}
 	}
-
-	// Handle piped input
+	/* handle piped input */
 	if (!isatty(STDIN_FILENO)) {
+		char *tmp = realloc(message, message_size + 1);
+		if (tmp == NULL) {
+			printf("Error: realloc failed\n");
+			exit(1);
+		}
+		message = tmp;
+		strcat(message, "\n");
 		char *line = NULL;
-		size_t buffer_size = 0;
-		ssize_t line_size;
-		while ((line_size = getline(&line, &buffer_size, stdin)) !=
-		       -1) {
-			message = realloc(message,
-					  sizeof(char) * (1 + strlen(message) +
-							  line_size));
+		size_t len = 0;
+		ssize_t read;
+		while ((read = getline(&line, &len, stdin)) != -1) {
+			message_size += strlen(line) + 1;
+			tmp = realloc(message, message_size);
+			if (tmp == NULL) {
+				printf("Error: realloc failed\n");
+				exit(1);
+			}
+			message = tmp;
 			strcat(message, line);
 		}
 		free(line);
-		// If no piped input and no arguments then error
-	} else if (argc == 1) {
-		fprintf(stderr, "Usage: cumsay <text_to_ejaculate> \n");
-		return 1;
 	}
+	if (message_size == 1)
+		print_help(NULL);
+	cum_say(message, current_colour, rainbowed);
+}
 
-	// Ejaculate
-	cum_say(message, colour, rainbow);
-	free(message); // fuck you
+int print_help(char *arg)
+{
+	printf("Usage: cum [OPTION]... [MESSAGE]\n"
+	       "Ejaculate a message!\n\n"
+	       "  -c, --colour=COLOUR\t\tSet the colour of the message\n"
+	       "  -r, --rainbow\t\t\tSet the colour of the message to a random colour\n"
+	       "  -h, --help\t\t\tPrint this help message and exit\n"
+	       "  -v, --version\t\t\tPrint the version number and exit\n\n"
+	       "Valid colours are: red, green, yellow, blue, magenta, cyan, white\n"
+	       "If no message is specified, the default message will be used.\n"
+	       "If no colour is specified, the default colour will be used.\n"
+	       "If no arguments are specified, the default message and colour will be used.\n\n"
+	       "Report bugs to <@deltara3> on Discord.\n");
+	exit(0);
 	return 0;
-	// no need to free message as it is freed when the program exits :D
+}
+int print_version(char *arg)
+{
+	printf("cum version %s\n", VERSION);
+	exit(0);
+	return 0;
 }
 
-// The horrible stuff below
-
-void print_version()
+int set_rainbow(char *arg)
 {
-	printf("cumsay version %s \n", VERSION);
+	rainbowed = 1;
+	return 0;
 }
-
-void print_help()
+int set_colour(char *colour)
 {
-	printf("Usage: cumsay <text_to_ejaculate> \n");
-	printf("Options: \n");
-	printf("  -h, --help     Show this help message and exit \n");
-	printf("  -v, --version  Show version number and exit \n");
-	printf("  -c, --colour   Change the colour of the cum \n");
-	printf("  -r, --rainbow  Make the cum rainbow \n");
-}
-
-int lenght_check(int argc, int arg_index)
-{
-	if (arg_index + 1 >= argc) {
-		fprintf(stderr, "No colour specified \n");
+	if (colour == NULL) {
+		printf("No colour specified\n");
 		exit(1);
 	}
-	return 1;
-}
-int validate_arg(char *arg, int *rainbow)
-{
-	// parse arguments and check if they are valid
-	// -h, --help, -v, --version, -c, --colour, -r, --rainbow
-	if (strcmp(arg, arguments[0]) == 0 || strcmp(arg, arguments[1]) == 0) {
-		print_help(); // help
-		exit(0);
-	}
-	if (strcmp(arg, arguments[2]) == 0 || strcmp(arg, arguments[3]) == 0) {
-		print_version(); // version
-		exit(0);
-	}
-
-	if (strcmp(arg, arguments[6]) == 0 || strcmp(arg, arguments[7]) == 0) {
-		(*rainbow) = 1; // rainbow
-		return 0;
-	}
-	if (strcmp(arg, arguments[4]) == 0 || strcmp(arg, arguments[5]) == 0) {
-		return 1;
-		// colour
-	}
-
-	// not a valid argument, must be text
-	return 0;
-}
-
-int parse_colour(char *arg, char **colour)
-{
-	int i = 0;
-	if (arg[0] == '-') {
-		i = 1;
-	}
-	switch (arg[i]) {
-	case 'r':
-		*colour = colours.red;
-		break;
-	case 'g':
-		*colour = colours.green;
-		break;
-	case 'y':
-		*colour = colours.yellow;
-		break;
-	case 'b':
-		*colour = colours.blue;
-		break;
-	case 'm':
-		*colour = colours.magenta;
-		break;
-	case 'c':
-		*colour = colours.cyan;
-		break;
-	case 'w':
-		*colour = colours.white;
-		break;
-	default:
-		fprintf(stderr, "Invalid colour: %s \n", arg);
+	if ((strcmp(colour, "red") == 0) || strcmp(colour, "r") == 0) {
+		current_colour = colours.red;
+	} else if ((strcmp(colour, "green") == 0) || strcmp(colour, "g") == 0) {
+		current_colour = colours.green;
+	} else if ((strcmp(colour, "yellow") == 0) ||
+		   strcmp(colour, "y") == 0) {
+		current_colour = colours.yellow;
+	} else if ((strcmp(colour, "blue") == 0) || strcmp(colour, "b") == 0) {
+		current_colour = colours.blue;
+	} else if ((strcmp(colour, "magenta") == 0) ||
+		   strcmp(colour, "m") == 0) {
+		current_colour = colours.magenta;
+	} else if ((strcmp(colour, "cyan") == 0) || strcmp(colour, "c") == 0) {
+		current_colour = colours.cyan;
+	} else if ((strcmp(colour, "white") == 0) || strcmp(colour, "w") == 0) {
+		current_colour = colours.white;
+	} else {
+		printf("Invalid colour: %s\n", colour);
 		exit(1);
 	}
 	return 0;
 }
+
 void random_colour()
 {
-	// changes the terminal text colour to a random colour
-	// Note this is horrible but ehh who cares, it works and it's not like this is
-	// a serious project
-	int randomIndex = rand() % 7;
-	const char *randomColor = NULL;
-	switch (randomIndex) {
+	int r = rand() % 7;
+	switch (r) {
 	case 0:
-		randomColor = colours.red;
+		printf("%s", colours.red);
 		break;
 	case 1:
-		randomColor = colours.green;
+		printf("%s", colours.green);
 		break;
 	case 2:
-		randomColor = colours.yellow;
+		printf("%s", colours.yellow);
 		break;
 	case 3:
-		randomColor = colours.blue;
+		printf("%s", colours.blue);
 		break;
 	case 4:
-		randomColor = colours.magenta;
+		printf("%s", colours.magenta);
 		break;
 	case 5:
-		randomColor = colours.cyan;
+		printf("%s", colours.cyan);
 		break;
 	case 6:
-		randomColor = colours.white;
+		printf("%s", colours.white);
+		break;
+	default:
+		printf("%s", colours.white);
 		break;
 	}
-	printf("%s", randomColor);
 }
