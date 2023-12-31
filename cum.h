@@ -12,9 +12,18 @@ typedef struct {
 	char *reset;
 } valid_colours;
 
-void print_help();
-void print_version();
-int parse_colour(char *arg, char **colour);
-int validate_arg(char *arg, int *rainbow);
+// struct for args
+typedef struct {
+	char *long_arg;
+	char *short_arg;
+	int takes_arg;
+	int (*handler)(char *arg);
+} argument;
+
+// functions
+int print_help(char *useless);
+int print_version(char *useless);
+int set_colour(char *colour);
+int set_rainbow (char *string);
 void random_colour();
-int lenght_check(int argc, int arg_index);
+
