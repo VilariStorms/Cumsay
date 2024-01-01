@@ -43,15 +43,17 @@ argument rainbow = { .long_arg = "--rainbow",
 static argument *arguments[] = { &help, &version, &colour, &rainbow };
 static int num_args = sizeof(arguments) / sizeof(arguments[0]);
 
-static char *top = "/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\\n\n";
-static char *bottom = "\n"
+static char *top = "/‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒\\\n"
+                   "|                                        |\n";
+static char *bottom = 
+                   "|                                        |\n"
 		      "\\‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒/ \n";
 static char *sperm = "                ____     _/ \n"
 		     "______     ___.'  o `.  / \n"
 		     "/~----,\\___/,--.   ,_ | \n"
 		     "        `-----'   `---' ";
 
-void cum_say(char *message, char *colour, int rainbow)
+void cum_say(char *message, char *colour, int rainbow, int message_size)
 {
 	if (colour != NULL) {
 		printf("%s", colour);
@@ -59,18 +61,37 @@ void cum_say(char *message, char *colour, int rainbow)
 		random_colour();
 	}
 	printf("%s", top);
-
-	char *token = strtok(message, "\n");
-	while (token != NULL) {
+	char tmp[69] = { 0 };
+	int count = 0;
+	for (int i = 0; i < message_size; i++) {
+		if (count == 34) {
+			if (rainbow)
+				random_colour();
+			printf("|   %3s   |\n", tmp);
+			count = 0;
+			memset(tmp, 0, 69);
+		}
+		// check if it's a printable character 
+		if ((message[i] < 32) || (message[i] > 126))
+			continue;
+		tmp[count] = message[i];
+		count++;
+	}
+	/* this is horrible but it's 4am and it works so idrc */
+	if (count > 0) {
 		if (rainbow)
 			random_colour();
-
-		printf("%22s\n", token);
-		token = strtok(NULL, "\n");
+		int str = 34 - strlen(tmp);
+		int i;
+		for (i = 0; i < str; i++) {
+			strcat(tmp, " ");
+		}
+		printf("|   %3s   |\n", tmp);	
+	
 	}
+
 	if (rainbow)
 		random_colour();
-
 	printf("%s\n", bottom);
 	if (rainbow)
 		random_colour();
@@ -159,7 +180,7 @@ int main(int argc, char *argv[])
 	}
 	if (message_size == 1)
 		print_help(NULL);
-	cum_say(message, current_colour, rainbowed);
+	cum_say(message, current_colour, rainbowed, message_size);
 }
 
 int print_help(char *arg)
