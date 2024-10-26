@@ -5,3 +5,4 @@ config.status
 .deps
 cum.o
 stamp-h1
+a.out

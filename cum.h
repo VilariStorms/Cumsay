@@ -1,29 +1,15 @@
-// Contents: header file for cum.c
+// This shit is a whole rewrite so yeah
+#define VERSION "0.2.0"
 
-// struct for colours
-typedef struct {
-	char *red;
-	char *green;
-	char *yellow;
-	char *blue;
-	char *magenta;
-	char *cyan;
-	char *white;
-	char *reset;
-} valid_colours;
+// Some ANSI definitions lol
+#define RESET   "\x1b[0m"
 
-// struct for args
-typedef struct {
-	char *long_arg;
-	char *short_arg;
-	int takes_arg;
-	int (*handler)(char *arg);
-} argument;
-
-// functions
-int print_help(char *useless);
-int print_version(char *useless);
-int set_colour(char *colour);
-int set_rainbow (char *string);
-void random_colour();
-
+static const char *COLOR[] = {
+    "\x1b[31m", // Red
+    "\x1b[32m", // Green
+    "\x1b[33m", // Yellow
+    "\x1b[34m", // Blue
+    "\x1b[35m", // Magenta
+    "\x1b[36m", // Cyan
+    "\x1b[37m"  // White
+};
