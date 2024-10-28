@@ -1,12 +1,9 @@
-#include <stdio.h>
 #ifdef _WIN32
     #include <windows.h>
 #else
     #include <unistd.h>
     #include <sys/ioctl.h>
 #endif
-
-#include "cum.h"
 
 int get_term_width(void) {
     // For fuck's sake Microsoft
@@ -26,10 +23,4 @@ int get_term_width(void) {
 
         return w.ws_col;
     #endif
-}
-
-int main(void) {
-
-
-    return 0;
 }
