@@ -1,8 +1,1 @@
-cumsay
-Makefile
-config.log
-config.status
-.deps
-cum.o
-stamp-h1
-a.out
+build/
